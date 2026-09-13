@@ -1,0 +1,1287 @@
+/* =========================================================
+   D'STYLE APPAREL - MAIN STYLESHEET
+   ---------------------------------------------------------
+   This file contains only styles used by the current HTML. 
+   Unused/old location and visit-section styles were removed.
+   ========================================================= */
+
+/* =========================================================
+   1. GLOBAL STYLES
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --brown: #a98b7c;
+  --brown-dark: #40322d;
+  --brown-soft: #d8c8bd;
+  --cream: #f8f5f0;
+  --text: #111;
+  --white: #fff;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+  font-family: "Montserrat", Arial, sans-serif;
+  background: var(--white);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.section-texture {
+  background-color: var(--cream);
+  background-image:
+    radial-gradient(
+      ellipse at 20% 20%,
+      rgba(255, 255, 255, 0.8) 0 10%,
+      transparent 35%
+    ),
+    radial-gradient(
+      ellipse at 80% 70%,
+      rgba(169, 139, 124, 0.16) 0 8%,
+      transparent 34%
+    ),
+    repeating-radial-gradient(
+      ellipse at 50% 50%,
+      rgba(120, 100, 90, 0.045) 0 2px,
+      transparent 3px 12px
+    );
+}
+
+/* =========================================================
+   2. HEADER AND NAVIGATION
+   ========================================================= */
+
+.site-header {
+  height: 96px;
+  display: flex;
+  align-items: center;
+  gap: 34px;
+  padding: 0 6%;
+  background: var(--white);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid #eee;
+  transition:
+    height 0.3s ease,
+    padding 0.3s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease;
+}
+
+/* Smaller header after the user scrolls down. */
+.site-header.scrolled {
+  height: 72px;
+  padding: 0 5%;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  background: rgba(255, 255, 255, 0.96);
+}
+
+/* Brand/logo in the header. */
+.brand {
+  width: 150px;
+  min-width: 150px;
+  height: 70px;
+  position: relative;
+  display: grid;
+  place-items: end center;
+  padding-bottom: 8px;
+  font-family: Georgia, serif;
+}
+
+
+/* Main navigation links. */
+.main-nav {
+  display: flex;
+  justify-content: center;
+  gap: 34px;
+  flex: 1;
+}
+
+.main-nav a {
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+  color: var(--brown);
+}
+
+/* Category dropdown. */
+.nav-dropdown {
+  position: relative;
+}
+
+.dropdown-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.dropdown-arrow {
+  width: 7px;
+  height: 7px;
+  margin-top: -4px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.25s ease;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 25px);
+  left: 50%;
+  min-width: 175px;
+  padding: 10px 0;
+  background: var(--white);
+  border: 1px solid #eee;
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(-8px);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    visibility 0.25s ease;
+  z-index: 100;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 12px 20px;
+  color: #222;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    padding-left 0.2s ease;
+}
+
+.dropdown-menu a:hover {
+  padding-left: 25px;
+  background: var(--cream);
+  color: var(--brown);
+}
+
+/* Show the dropdown when hovered or focused. */
+.nav-dropdown:hover .dropdown-menu,
+.nav-dropdown:focus-within .dropdown-menu,
+.nav-dropdown.open .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.nav-dropdown:hover .dropdown-arrow,
+.nav-dropdown:focus-within .dropdown-arrow,
+.nav-dropdown.open .dropdown-arrow {
+  margin-top: 4px;
+  transform: rotate(225deg);
+}
+
+/* Search, favorites, and cart area. */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.search input {
+  width: 225px;
+  height: 29px;
+  padding: 0 12px;
+  border: 1px solid #aaa;
+  border-radius: 20px;
+  outline: none;
+}
+
+.search input:focus {
+  border-color: var(--brown);
+  box-shadow: 0 0 0 2px rgba(169, 139, 124, 0.15);
+}
+
+.icon-btn {
+  border: 0;
+  background: transparent;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.menu-toggle {
+  display: none;
+  border: 0;
+  background: transparent;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+/* =========================================================
+   3. HERO SECTION
+   ========================================================= */
+
+.hero {
+  min-height: 700px;
+  padding: 100px 7% 65px;
+  display: grid;
+  grid-template-columns: 0.85fr 1.25fr;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero-copy {
+  max-width: 520px;
+  z-index: 2;
+}
+
+.eyebrow {
+  color: var(--brown);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.hero h1 {
+  margin: 12px 0 18px;
+  font-size: clamp(48px, 5vw, 74px);
+  line-height: 0.98;
+  letter-spacing: -3px;
+}
+
+.hero-description {
+  max-width: 480px;
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+/* Reusable buttons used throughout the page. */
+.hero-buttons,
+.switchers {
+  display: flex;
+  gap: 30px;
+  margin-top: 25px;
+}
+
+.btn {
+  min-width: 160px;
+  height: 46px;
+  padding: 0 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  font-size: 17px;
+  font-weight: 500;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn.filled {
+  background: var(--brown);
+  color: var(--white);
+}
+
+.btn.outline {
+  border: 1px solid #222;
+  background: rgba(255, 255, 255, 0.65);
+  color: var(--brown);
+}
+
+/* Product image placeholders in the hero. */
+.hero-gallery {
+  height: 580px;
+  position: relative;
+}
+
+.hero-card {
+  position: absolute;
+  width: 285px;
+  aspect-ratio: 0.78;
+  margin: 0;
+  padding: 0;
+  background: var(--brown-soft);
+  box-shadow: 0 0 0 1px rgba(100, 70, 55, 0.06);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.hero-card::after {
+  content: "";
+  position: absolute;
+  inset: 18px 0 0 18px;
+  z-index: 0;
+  background: #303238;
+}
+
+.hero-card .image-placeholder {
+  position: absolute;
+  inset: 18px 0 0 18px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: 700;
+  letter-spacing: 2px;
+  background: linear-gradient(145deg, #303238, #777);
+}
+
+.card-left {
+  left: 0;
+  top: 250px;
+  transform: translateX(4%);
+}
+
+.card-center {
+  left: 37%;
+  top: 130px;
+  transform: scale(1.04);
+}
+
+.card-right {
+  right: 0;
+  top: 0;
+}
+
+/* Small floating effect when hovering over hero cards. */
+.card-left:hover {
+  transform: translateX(4%) translateY(-12px) rotate(-1deg);
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.18);
+}
+
+.card-center:hover {
+  transform: translateY(-14px) scale(1.07) rotate(0.5deg);
+  box-shadow: 0 22px 35px rgba(0, 0, 0, 0.2);
+}
+
+.card-right:hover {
+  transform: translateY(-12px) rotate(1deg);
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.18);
+}
+
+/* =========================================================
+   4. Products
+   ========================================================= */
+
+.products {
+  padding: 55px 5% 90px;
+}
+
+.prod-grid {
+  max-width: 1250px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 0.95fr 0.8fr 0.95fr 1fr;
+  gap: 20px;
+  align-items: center;
+}
+
+.prod-img {
+  min-height: 300px;
+  display: grid;
+  place-items: center;
+  color: var(--white);
+  font-size: 13px;
+  letter-spacing: 2px;
+  background: linear-gradient(145deg, #42464b, #aaa);
+  box-shadow: 18px 18px 0 rgba(169, 139, 124, 0.3);
+}
+
+.prod-img.tall {
+  min-height: 440px;
+}
+
+.prod-copy {
+  padding: 15px;
+  color: #6b584e;
+  font-family: Georgia, serif;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.05;
+}
+
+/* =========================================================
+   5. ABOUT SECTION
+   ========================================================= */
+
+.about {
+  min-height: 610px;
+  padding: 75px 10%;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 70px;
+  align-items: center;
+}
+
+.about-visual {
+  min-height: 450px;
+  display: grid;
+  place-items: center;
+  opacity: 30%;
+}
+
+.ghost-logo {
+  color: rgba(169, 139, 124, 0.22);
+  font-family: Georgia, serif;
+  font-size: 82px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.ghost-logo::before {
+  content: "⌒";
+  display: block;
+  font-size: 100px;
+  line-height: 0.35;
+}
+
+.ghost-logo small {
+  display: block;
+  font-size: 30px;
+  letter-spacing: 8px;
+}
+
+.about-copy h2 {
+  margin: 0 0 20px;
+  font-size: 52px;
+}
+
+.about-copy p {
+  margin-bottom: 27px;
+  font-size: 17px;
+  line-height: 1.45;
+}
+
+/* =========================================================
+   6. WHY D'STYLE SECTION
+   ========================================================= */
+
+.why-dstyle {
+  padding: 90px 7%;
+  text-align: center;
+}
+
+.why-heading {
+  max-width: 650px;
+  margin: 0 auto 50px;
+}
+
+.why-heading h2 {
+  margin: 8px 0 15px;
+  font-size: 52px;
+}
+
+.why-heading > p:last-child {
+  max-width: 560px;
+  margin: auto;
+  color: #5c4b43;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.why-grid {
+  max-width: 1150px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.why-card {
+  min-height: 250px;
+  padding: 35px 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(169, 139, 124, 0.35);
+  border-radius: 12px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.why-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 15px 30px rgba(70, 50, 40, 0.12);
+}
+
+.why-icon {
+  width: 55px;
+  height: 55px;
+  margin-bottom: 20px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--brown);
+  color: var(--white);
+  font-size: 25px;
+}
+
+.why-card h3 {
+  margin: 0 0 13px;
+  font-size: 16px;
+  letter-spacing: 1.5px;
+}
+
+.why-card p {
+  margin: 0;
+  color: #62544d;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+/* =========================================================
+   7. CATEGORY SWITCHERS
+   ========================================================= */
+
+.switchers {
+  justify-content: center;
+  padding: 40px 20px;
+  margin: 0;
+}
+
+.switchers .btn {
+  min-width: 260px;
+}
+
+/* =========================================================
+   8. CATEGORY COVERFLOW
+   ========================================================= */
+
+.categories {
+  min-height: 790px;
+  padding: 45px 3% 80px;
+  overflow: hidden;
+}
+
+.section-title {
+  width: fit-content;
+  margin: 0 auto 35px;
+  padding: 12px 50px;
+  background: var(--brown);
+  border-radius: 9px;
+  color: var(--white);
+  font-size: 30px;
+  font-weight: 500;
+}
+
+.coverflow-wrap {
+  position: relative;
+  max-width: 1150px;
+  height: 480px;
+  margin: auto;
+}
+
+.coverflow {
+  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  perspective: 1200px;
+  touch-action: pan-y;
+}
+
+.category-card {
+  position: absolute;
+  width: 335px;
+  height: 410px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 9px;
+  background: var(--brown-dark);
+  cursor: pointer;
+  user-select: none;
+  transition:
+    transform 0.45s cubic-bezier(0.2, 0.75, 0.25, 1),
+    opacity 0.35s,
+    filter 0.35s;
+}
+
+.category-image {
+  position: absolute;
+  inset: 0;
+}
+
+/* Temporary visual placeholders until product images are added. */
+.placeholder-men {
+  background: linear-gradient(135deg, #222, #777);
+}
+
+.placeholder-women {
+  background: linear-gradient(135deg, #704e57, #d0b4ae);
+}
+
+.placeholder-kids {
+  background: linear-gradient(135deg, #59738a, #c7d2d7);
+}
+
+.placeholder-shoes {
+  background: linear-gradient(135deg, #6f5c48, #d4c2a5);
+}
+
+.placeholder-accessories {
+  background: linear-gradient(135deg, #4d4d4d, #c5b8aa);
+}
+
+.category-image::before {
+  content: "D’STYLE";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: Georgia, serif;
+  font-size: 42px;
+  font-weight: 700;
+}
+
+.category-label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 17px;
+  text-align: center;
+  color: var(--white);
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+/* Previous and next carousel buttons. */
+.flow-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 20;
+  width: 52px;
+  height: 52px;
+  transform: translateY(-50%);
+  border: 1px solid #222;
+  border-radius: 50%;
+  background: var(--white);
+  font-size: 38px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.flow-arrow:hover {
+  background: var(--brown);
+  color: var(--white);
+}
+
+.prev {
+  left: 5%;
+}
+
+.next {
+  right: 5%;
+}
+
+.flow-controls {
+  margin-top: 15px;
+  text-align: center;
+  color: #5c4b43;
+}
+
+.flow-controls span {
+  margin: 0 12px;
+}
+
+.flow-hint {
+  opacity: 0.7;
+  font-size: 13px;
+}
+
+/* =========================================================
+   9. FIND D'STYLE / LOCATION
+   ========================================================= */
+
+.location-section {
+  padding: 110px 7%;
+  background: var(--cream);
+}
+
+.location-header {
+  margin-bottom: 45px;
+  text-align: center;
+}
+
+.location-header .section-label {
+  color: var(--brown);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.location-header h2 {
+  margin: 10px 0;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(40px, 5vw, 64px);
+  letter-spacing: -2px;
+}
+
+.location-header p {
+  max-width: 520px;
+  margin: 0 auto;
+  color: #6f625c;
+  line-height: 1.6;
+}
+
+.location-card {
+  max-width: 1100px;
+  min-height: 390px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 40% 60%;
+  overflow: hidden;
+  background: var(--white);
+  box-shadow: 0 15px 40px rgba(70, 50, 40, 0.1);
+}
+
+.location-info {
+  padding: 55px 45px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+}
+
+.location-number {
+  color: var(--brown);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.location-info h3 {
+  margin: 15px 0 8px;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 34px;
+}
+
+.location-info p {
+  margin: 5px 0;
+  color: #6f625c;
+}
+
+.location-address {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.map-link {
+  width: fit-content;
+  margin-top: 30px;
+  padding-bottom: 7px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid var(--brown);
+  color: var(--brown-dark);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  transition: gap 0.25s ease, color 0.25s ease;
+}
+
+.map-link:hover {
+  gap: 15px;
+  color: var(--brown);
+}
+
+.map-link span {
+  font-size: 16px;
+}
+
+.location-map {
+  position: relative;
+  min-height: 390px;
+  overflow: hidden;
+  background: #ddd;
+}
+
+.location-map iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 390px;
+  display: block;
+  border: 0;
+  filter: grayscale(100%) contrast(0.9);
+  transform: scale(1.02);
+  transition: filter 0.5s ease, transform 0.6s ease;
+}
+
+/* Bring the map to full color when the location card is hovered. */
+.location-card:hover .location-map iframe {
+  filter: grayscale(0%) contrast(1);
+  transform: scale(1);
+}
+
+.map-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.35s ease;
+}
+
+.map-overlay span {
+  padding: 12px 20px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--brown-dark);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
+}
+
+.location-card:hover .map-overlay {
+  opacity: 0;
+}
+
+/* =========================================================
+   10. SCROLL REVEAL AND TOAST MESSAGE
+   ========================================================= */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.toast {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  z-index: 100;
+  padding: 12px 20px;
+  transform: translate(-50%, 20px);
+  border-radius: 8px;
+  background: #302722;
+  color: var(--white);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+/* =========================================================
+   11. RESPONSIVE DESIGN
+   ========================================================= */
+
+/* Tablet / smaller desktop. */
+@media (max-width: 1000px) {
+  .site-header {
+    padding: 0 4%;
+    gap: 15px;
+  }
+
+  .main-nav {
+    gap: 17px;
+  }
+
+  .search input {
+    width: 150px;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-gallery {
+    height: 450px;
+    margin-top: 40px;
+  }
+
+  .card-left {
+    left: 5%;
+    top: 160px;
+  }
+
+  .card-center {
+    left: 35%;
+    top: 80px;
+  }
+
+  .card-right {
+    right: 5%;
+    top: 0;
+  }
+
+  .prod-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .prod-copy {
+    grid-column: 2;
+  }
+
+  .about {
+    padding-inline: 6%;
+  }
+
+  .why-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .location-card {
+    grid-template-columns: 1fr;
+  }
+
+  .location-info {
+    min-height: 280px;
+  }
+
+  .location-map {
+    min-height: 320px;
+  }
+
+  .location-map iframe {
+    min-height: 320px;
+  }
+}
+
+/* Mobile navigation and layout. */
+@media (max-width: 720px) {
+  .site-header {
+    height: 76px;
+  }
+
+  .brand {
+    width: 105px;
+    min-width: 105px;
+    transform: scale(0.8);
+    transform-origin: left center;
+  }
+
+  .menu-toggle {
+    display: block;
+    margin-left: auto;
+  }
+
+  .main-nav {
+    display: none;
+    position: absolute;
+    top: 76px;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    flex-direction: column;
+    align-items: center;
+    background: var(--white);
+    border-bottom: 1px solid #ddd;
+  }
+
+  .main-nav.open {
+    display: flex;
+  }
+
+  .nav-dropdown {
+    width: 100%;
+    text-align: center;
+  }
+
+  .dropdown-toggle {
+    margin: auto;
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: calc(100% + 15px);
+    left: 50%;
+    width: 200px;
+    margin: 0;
+    transform: translateX(-50%);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid #eee;
+  }
+
+  .nav-dropdown:hover .dropdown-menu,
+  .nav-dropdown:focus-within .dropdown-menu,
+  .nav-dropdown.open .dropdown-menu {
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .header-actions {
+    gap: 4px;
+  }
+
+  .search {
+    display: none;
+  }
+
+  .icon-btn {
+    font-size: 24px;
+  }
+
+  .hero {
+    min-height: auto;
+    padding: 65px 7% 45px;
+  }
+
+  .hero h1 {
+    font-size: 47px;
+  }
+
+  .hero-description {
+    font-size: 15px;
+  }
+
+  .hero-buttons {
+    gap: 10px;
+  }
+
+  .btn {
+    min-width: 130px;
+    height: 43px;
+    padding: 0 13px;
+    font-size: 14px;
+  }
+
+  .hero-gallery {
+    height: 390px;
+  }
+
+  .hero-card {
+    width: 190px;
+  }
+
+  .card-left {
+    left: 0;
+    top: 175px;
+  }
+
+  .card-center {
+    left: 27%;
+    top: 80px;
+  }
+
+  .card-right {
+    right: 0;
+    top: 0;
+  }
+
+  .products {
+    padding-inline: 7%;
+  }
+
+  .prod-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .prod-copy {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    font-size: 29px;
+  }
+
+  .prod-img.tall {
+    min-height: 260px;
+  }
+
+  .prod-img {
+    min-height: 210px;
+  }
+
+  .about {
+    grid-template-columns: 1fr;
+    padding: 55px 7%;
+    gap: 20px;
+  }
+
+  .about-visual {
+    min-height: 250px;
+  }
+
+  .ghost-logo {
+    font-size: 60px;
+  }
+
+  .about-copy h2 {
+    font-size: 38px;
+  }
+
+  .about-copy p {
+    font-size: 15px;
+  }
+
+  .switchers {
+    gap: 10px;
+  }
+
+  .switchers .btn {
+    min-width: 145px;
+  }
+
+  .categories {
+    min-height: 670px;
+  }
+
+  .section-title {
+    padding: 10px 35px;
+    font-size: 22px;
+  }
+
+  .coverflow-wrap {
+    height: 430px;
+  }
+
+  .category-card {
+    width: 260px;
+    height: 350px;
+  }
+
+  .prev {
+    left: 0;
+  }
+
+  .next {
+    right: 0;
+  }
+
+  .flow-arrow {
+    width: 45px;
+    height: 45px;
+    font-size: 31px;
+  }
+
+  .flow-hint {
+    display: none;
+  }
+
+  .location-section {
+    padding: 75px 7%;
+  }
+
+  .location-info {
+    padding: 40px 30px;
+  }
+
+  .location-map,
+  .location-map iframe {
+    min-height: 300px;
+  }
+
+  .footer {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-links {
+    justify-content: flex-start;
+    gap: 70px;
+  }
+}
+
+/* Smaller phones. */
+@media (max-width: 600px) {
+  .why-dstyle {
+    padding: 65px 7%;
+  }
+
+  .why-heading h2 {
+    font-size: 38px;
+  }
+
+  .why-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .why-card {
+    min-height: auto;
+    padding: 30px 25px;
+  }
+
+  .footer-links {
+    gap: 40px;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* =========================================================
+   10. FOOTER
+   ========================================================= */
+
+.footer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  padding: 70px 7% 20px;
+}
+
+
+.footer-links {
+  display: flex;
+  gap: 80px;
+}
+
+.footer-links > div {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.footer-links h3 {
+  margin: 0 0 5px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--brown);
+}
+
+.footer-bottom { 
+  grid-column: 1/-1; 
+  border-top: 1px solid #888; 
+  padding-top: 12px; margin-top: 30px; 
+  text-align: left; 
+}
