@@ -54,6 +54,7 @@ pass: admin123
                         <th>PRODUCT</th>
                         <th>CATEGORY</th>
                         <th>PRICE</th>
+                        <th>DISCOUNT</th>
                         <th>STOCK</th>
                         <th>SIZES</th>
                         <th>FEATURED</th>
@@ -71,6 +72,13 @@ pass: admin123
                         </td>
                         <td><?= e($product['category_name']) ?></td>
                         <td><?= format_price((float) $product['price']) ?></td>
+                        <td>
+                            <?php if ((float) ($product['discount_percent'] ?? 0) > 0): ?>
+                                <?= e($product['discount_percent']) ?>% OFF
+                            <?php else: ?>
+                                —
+                            <?php endif; ?>
+                        </td>
                         <td><?= (int) $product['stock_qty'] ?></td>
                         <td><?= e(implode(', ', product_sizes($product['sizes_json']))) ?></td>
                         <td><?= (int) $product['featured'] === 1 ? 'YES' : 'NO' ?></td>

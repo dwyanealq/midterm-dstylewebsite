@@ -36,8 +36,24 @@ require __DIR__ . '/includes/header.php';
         <p class="product-category"><?= e($product['category_name']) ?></p>
         <h1><?= e($product['product_name']) ?></h1>
         <?php if ($product['brand']): ?><p class="product-brand large-brand"><?= e($product['brand']) ?></p><?php endif; ?>
-        <p class="product-price detail-price"><?= format_price((float) $product['price']) ?></p>
-        <p class="product-description"><?= nl2br(e($product['description'] ?? '')) ?></p>
+        <?php
+            $originalPrice = (float) $product['price'];
+            $discountPercent = (float) ($product['discount_percent'] ?? 0);
+            $salePrice = $originalPrice - ($originalPrice * $discountPercent / 100); ?>
+
+        <?php if ($discountPercent > 0): ?>
+            <p class="product-price detail-price">
+            <span style="text-decoration: line-through; opacity: 0.55;">
+                <?= format_price($originalPrice) ?>
+            </span>
+            <br>
+            <strong><?= format_price($salePrice) ?></strong>
+            <small><?= e($discountPercent) ?>% OFF</small> </p>
+        <?php else: ?>
+            <p class="product-price detail-price">
+        <?= format_price($originalPrice) ?> </p>
+        <?php endif; ?>
+            <p class="product-description"><?= nl2br(e($product['description'] ?? '')) ?></p>
 
         <?php if ((int) $product['stock_qty'] > 0): ?>
             <form class="add-cart-form" method="post" action="cart_action.php">

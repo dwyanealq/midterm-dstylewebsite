@@ -38,7 +38,7 @@ require __DIR__ . '/includes/header.php';
         </p>
         <div class="hero-buttons">
             <a class="btn filled" href="products.php">SHOP PRODUCTS</a>
-            <a class="btn outline" href="#popular">POPULAR</a>
+            <a class="btn outline" href="#latest">LATEST</a>
         </div>
     </div>
 
@@ -66,7 +66,7 @@ require __DIR__ . '/includes/header.php';
 <!-- =====================================================
      PRODUCT STRIP
      ===================================================== -->
-<section class="products" id="popular">
+<section class="products" id="latest">
     <div class="prod-grid">
         <?php $productSlots = array_slice($productStrip, 0, 4); ?>
         <?php foreach ($productSlots as $index => $product): ?>
@@ -121,8 +121,8 @@ require __DIR__ . '/includes/header.php';
      QUICK SHOP LINKS
      ===================================================== -->
 <section class="switchers" id="popular-links">
-    <a class="btn filled" href="products.php?sort=new">NEW STUFF!</a>
-    <a class="btn filled" href="products.php?sort=popular">POPULAR</a>
+    <a class="btn filled" href="products.php?sort=new">LATEST</a>
+    <a class="btn filled" href="products.php?sort=sale">ON SALE</a>
 </section>
 
 <!-- =====================================================

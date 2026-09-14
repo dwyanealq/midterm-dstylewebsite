@@ -6,6 +6,7 @@ require_once __DIR__ . '/includes/functions.php';
 $pdo = db();
 $category = trim($_GET['category'] ?? '');
 $query = trim($_GET['q'] ?? '');
+$sort = trim($_GET['sort'] ?? '');
 
 $sql = 'SELECT p.*, c.name AS category_name FROM products p JOIN categories c ON c.id = p.category_id WHERE 1=1';
 $params = [];
@@ -21,7 +22,13 @@ if ($query !== '') {
     array_push($params, $term, $term, $term, $term);
 }
 
-$sql .= ' ORDER BY p.featured DESC, p.created_at DESC';
+if ($sort === 'sale') {
+    $sql .= ' AND p.discount_percent > 0';
+    $sql .= ' ORDER BY p.created_at DESC';
+} else {
+    $sql .= ' ORDER BY p.created_at DESC';
+}
+
 $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
 $products = $stmt->fetchAll();
@@ -74,7 +81,23 @@ require __DIR__ . '/includes/header.php';
                             <p class="product-category"><?= e($product['category_name']) ?></p>
                             <h2><a href="product.php?id=<?= (int) $product['id'] ?>"><?= e($product['product_name']) ?></a></h2>
                             <?php if ($product['brand']): ?><p class="product-brand"><?= e($product['brand']) ?></p><?php endif; ?>
-                            <p class="product-price"><?= format_price((float) $product['price']) ?></p>
+                            <?php
+                                $originalPrice = (float) $product['price'];
+                                $discountPercent = (float) ($product['discount_percent'] ?? 0);
+                                $salePrice = $originalPrice - ($originalPrice * $discountPercent / 100); ?>
+
+                            <?php if ($discountPercent > 0): ?>
+                            <p class="product-price">
+                                <span style="text-decoration: line-through; opacity: 0.55;">
+                                    <?= format_price($originalPrice) ?>
+                                </span>
+                                <br>
+                                <strong><?= format_price($salePrice) ?></strong>
+                                <small><?= e($discountPercent) ?>% OFF</small>
+                                </p>
+                            <?php else: ?>
+                                <p class="product-price"><?= format_price($originalPrice) ?></p>
+                            <?php endif; ?>
                         </div>
                         <div class="product-card-actions">
                             <form method="post" action="favorite.php">
