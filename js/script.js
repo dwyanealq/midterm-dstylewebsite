@@ -197,17 +197,13 @@ const searchInput = document.getElementById("searchInput");
  * PHP/database portion of the project is added.
  */
 search?.addEventListener("submit", (event) => {
-  event.preventDefault();
-
   const value = searchInput?.value.trim() || "";
 
   if (!value) {
+    event.preventDefault();
     showToast("Enter a product to search");
     searchInput?.focus();
-    return;
   }
-
-  showToast(`Searching for “${value}”`);
 });
 
 /* =========================================================
@@ -217,13 +213,7 @@ search?.addEventListener("submit", (event) => {
 const favoritesBtn = document.getElementById("favoritesBtn");
 const cartBtn = document.getElementById("cartBtn");
 
-favoritesBtn?.addEventListener("click", () => {
-  showToast("Favorites opened");
-});
-
-cartBtn?.addEventListener("click", () => {
-  showToast("Your cart is empty");
-});
+/* Favorites and cart are now regular links to the PHP pages. */
 
 /* =========================================================
    7. TOAST MESSAGE
