@@ -1,13 +1,24 @@
-/* =========================================================
-   D'STYLE APPAREL - MAIN STYLESHEET
-   ---------------------------------------------------------
-   This file contains only styles used by the current HTML. 
-   Unused/old location and visit-section styles were removed.
-   ========================================================= */
+
 
 /* =========================================================
    1. GLOBAL STYLES
    ========================================================= */
+
+@font-face {
+  font-family: "Monroe";
+  src: url("../fonts/Monroe-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Monroe";
+  src: url("../fonts/Monroe-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 * {
   box-sizing: border-box;
@@ -29,7 +40,7 @@ html {
 body {
   margin: 0;
   color: var(--text);
-  font-family: "Montserrat", Arial, sans-serif;
+  font-family: "Monroe", Arial, sans-serif;
   background: var(--white);
 }
 
@@ -102,7 +113,7 @@ input {
   display: grid;
   place-items: end center;
   padding-bottom: 8px;
-  font-family: Georgia, serif;
+  font-family: "Monroe", Arial, sans-serif;;
 }
 
 
@@ -375,7 +386,7 @@ input {
 }
 
 .card-center {
-  left: 37%;
+  left: 35.5%;
   top: 130px;
   transform: scale(1.04);
 }
@@ -437,7 +448,7 @@ input {
 .prod-copy {
   padding: 15px;
   color: #6b584e;
-  font-family: Georgia, serif;
+  font-family: "Monroe", Arial, sans-serif;
   font-size: 34px;
   font-weight: 700;
   line-height: 1.05;
@@ -465,7 +476,7 @@ input {
 
 .ghost-logo {
   color: rgba(169, 139, 124, 0.22);
-  font-family: Georgia, serif;
+  font-family: "Monroe", Arial, sans-serif;
   font-size: 82px;
   font-weight: 700;
   text-align: center;
@@ -674,7 +685,7 @@ input {
   display: grid;
   place-items: center;
   color: rgba(255, 255, 255, 0.7);
-  font-family: Georgia, serif;
+  font-family: "Monroe", Arial, sans-serif;
   font-size: 42px;
   font-weight: 700;
 }
@@ -759,7 +770,7 @@ input {
 
 .location-header h2 {
   margin: 10px 0;
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: "Monroe", Arial, sans-serif;
   font-size: clamp(40px, 5vw, 64px);
   letter-spacing: -2px;
 }
@@ -800,7 +811,7 @@ input {
 
 .location-info h3 {
   margin: 15px 0 8px;
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: "Monroe", Arial, sans-serif;
   font-size: 34px;
 }
 
@@ -1285,12 +1296,17 @@ input {
   color: var(--brown);
 }
 
-.footer-bottom { 
-  grid-column: 1/-1; 
-  border-top: 1px solid #888; 
-  padding-top: 12px; margin-top: 30px; 
-  text-align: left; 
+.footer-bottom {
+  grid-column: 1 / -1;
+  border-top: 1px solid #888;
+  padding-top: 12px;
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
 }
+
 
 /* =========================================================
    12. STORE / ACCOUNT / ADMIN STYLES

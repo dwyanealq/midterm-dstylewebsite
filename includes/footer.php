@@ -32,8 +32,13 @@
     </div>
 
     <div class="footer-bottom">
-        <span>◎ &nbsp; ✉ &nbsp; | &nbsp; dstyleapp@gmail.com</span>
-    </div>
+    <span> 
+        <a href="https://www.instagram.com/"> <img src="<?= $rootPrefix ?? '' ?>images/instagram.webp" alt="Instagram" style="width:20;height:20px;"> </a>
+        <a href="https://www.facebook.com/"> <img src="<?= $rootPrefix ?? '' ?>images/facebook.webp" alt="Facebook" style="width:20;height:20px;"> </a>
+        | &nbsp; dstyleapp@gmail.com
+    </span>
+
+
 </footer>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>

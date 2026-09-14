@@ -12,6 +12,13 @@ $userCount = (int) $pdo->query("SELECT COUNT(*) FROM users WHERE role = 'custome
 $pageTitle = 'Admin Panel | D’STYLE Apparel';
 require __DIR__ . '/../includes/header.php';
 ?>
+
+<!-- 
+admin user: admin@dstyleapp.com
+pass: admin123 
+-->
+
+
 <section class="admin-header section-texture">
     <div>
         <span class="section-label">D’STYLE MANAGEMENT</span>

@@ -68,7 +68,7 @@ require __DIR__ . '/includes/header.php';
      ===================================================== -->
 <section class="products" id="popular">
     <div class="prod-grid">
-        <?php $productSlots = array_slice($productStrip, 0, 5); ?>
+        <?php $productSlots = array_slice($productStrip, 0, 4); ?>
         <?php foreach ($productSlots as $index => $product): ?>
             <a class="prod-img <?= $index === 0 || $index === 3 ? 'tall' : '' ?> reveal" href="product.php?id=<?= (int) $product['id'] ?>" aria-label="View <?= e($product['product_name']) ?>">
                 <img src="<?= e($product['image']) ?>" alt="<?= e($product['product_name']) ?>">
