@@ -133,29 +133,17 @@ require __DIR__ . '/includes/header.php';
     <div class="coverflow-wrap">
         <button class="flow-arrow prev" id="prevBtn" type="button" aria-label="Previous category">‹</button>
         <div class="coverflow" id="coverflow">
-            <?php
-            $categoryClasses = [
-                'Men' => 'images/MainLogo.png',
-                'Women' => 'placeholder-women',
-                'Kids' => 'placeholder-kids',
-                'Shoes' => 'placeholder-shoes',
-                'Accessories' => 'placeholder-accessories'
-            ];
-            foreach ($categoryClasses as $name => $class):
-            ?>
-                <a class="category-card" data-category="<?= e($name) ?>" href="products.php?category=<?= urlencode($name) ?>">
-                    <div class="category-image <?= e($class) ?>">
-                        <?php if (!empty($categoryImages[$name])): ?>
-                            <img
-                                src="<?= e($categoryImages[$name]) ?>"
-                                alt="<?= e($name) ?> clothing"
-                            >
-                        <?php else: ?>
-                            <span class="category-image-fallback">D’STYLE</span>
-                        <?php endif; ?>
-                    </div>                    
-                    <div class="category-label"><?= e(strtoupper($name)) ?></div>
-                </a>
+            <?php $categoryImages = [ 
+                'Men' => 'images/Products/men1.jpg', 
+                'Women' => 'images/Products/woman1.jpg', 
+                'Kids' => 'images/Products/kid1.jpg', 
+                'Shoes' => 'images/Products/shoe1.jpg', 
+                'Accessories' => 'images/Products/acc1.jpg' ]; 
+            foreach ($categoryImages as $name => $image): ?> 
+            <a class="category-card" data-category="<?= e($name) ?>" href="products.php?category=<?= urlencode($name) ?>" > 
+                <div class="category-image"> <img src="<?= e($image) ?>" alt="<?= e($name) ?> clothing" > </div> 
+                <div class="category-label"> <?= e(strtoupper($name)) ?> </div> 
+            </a> 
             <?php endforeach; ?>
         </div>
         <button class="flow-arrow next" id="nextBtn" type="button" aria-label="Next category">›</button>

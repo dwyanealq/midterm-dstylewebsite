@@ -12,6 +12,7 @@ const coverflow = document.getElementById("coverflow");
 
 let active = 0;
 let startX = null;
+let isDragging = false;
 
 /* Updates the position of every category card. */
 function renderCoverflow() {
@@ -81,15 +82,7 @@ nextBtn?.addEventListener("click", () => {
   goTo(active + 1);
 });
 
-/* Clicking a card either selects it or moves it to the center. */
-cards.forEach((card, index) => {
-  card.addEventListener("click", (event) => {
-    if (index !== active) {
-      event.preventDefault();
-      goTo(index);
-    }
-  });
-});
+
 
 /* Allow the left and right arrow keys to control the carousel. */
 document.addEventListener("keydown", (event) => {
@@ -109,7 +102,23 @@ document.addEventListener("keydown", (event) => {
 if (coverflow) {
   coverflow.addEventListener("pointerdown", (event) => {
     startX = event.clientX;
-    coverflow.setPointerCapture?.(event.pointerId);
+    isDragging = false;
+  });
+
+  coverflow.addEventListener("pointermove", (event) => {
+    if (startX === null) {
+      return;
+    }
+
+    const distance = event.clientX - startX;
+
+    /*
+     * Once the pointer moves more than 10px,
+     * consider it a drag instead of a click.
+     */
+    if (Math.abs(distance) > 10) {
+      isDragging = true;
+    }
   });
 
   coverflow.addEventListener("pointerup", (event) => {
@@ -119,14 +128,45 @@ if (coverflow) {
 
     const distance = event.clientX - startX;
 
-    /* Only treat movements larger than 45px as a swipe. */
+    /*
+     * Only move the coverflow when the user
+     * actually drags more than 45px.
+     */
     if (Math.abs(distance) > 45) {
       goTo(active + (distance < 0 ? 1 : -1));
     }
 
     startX = null;
+
+    /*
+     * Keep the dragging state long enough
+     * for the following click event to detect it.
+     */
+    setTimeout(() => {
+      isDragging = false;
+    }, 0);
+  });
+
+  coverflow.addEventListener("pointercancel", () => {
+    startX = null;
+    isDragging = false;
   });
 }
+
+/*
+ * Category cards are normal links.
+ *
+ * Clicking any card immediately follows its href.
+ * A drag does NOT follow the link.
+ */
+cards.forEach((card) => {
+  card.addEventListener("click", (event) => {
+    if (isDragging) {
+      event.preventDefault();
+    }
+  });
+});
+
 
 /* =========================================================
    3. MOBILE NAVIGATION
