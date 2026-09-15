@@ -17,12 +17,6 @@ $pageTitle = 'Admin Panel | D’STYLE Apparel';
 require __DIR__ . '/../includes/header.php';
 ?>
 
-<!-- 
-admin user: admin@dstyleapp.com
-pass: DSTYLE2026! 
--->
-
-
 <section class="admin-header section-texture">
     <div>
         <span class="section-label">D’STYLE MANAGEMENT</span>

@@ -2,7 +2,8 @@
 
 <footer class="footer section-texture">
     <div class="footer-brand">
-        <a href="<?= $rootPrefix ?? '' ?>index.php#location"><img src="<?= $rootPrefix ?? '' ?>images/Logo2.png" alt="brownlogo" style="width:390px;height:170px;"></a>
+<a href="<?= $rootPrefix ?? '' ?>index.php#location">
+    <img src="<?= $rootPrefix ?? '' ?>images/Logo2.png" alt="D’STYLE Apparel"> </a>
         <p>✉ &nbsp; dstyleapp@gmail.com</p>
         <p>◉ &nbsp; +63 993 576 5755</p>
         <p>⌖ &nbsp; Dumaguete City, Negros Oriental, PH</p>

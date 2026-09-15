@@ -1189,11 +1189,24 @@ input {
 
   .footer {
     grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 55px 7% 20px;
+  }
+
+  .footer-brand img {
+    width: min(300px, 100%) !important;
+    height: auto !important;
   }
 
   .footer-links {
-    justify-content: flex-start;
-    gap: 70px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 35px 25px;
+  }
+
+  .footer-bottom {
+    margin-top: 10px;
+    align-items: flex-start;
   }
 }
 
@@ -1222,7 +1235,6 @@ input {
     flex-direction: column;
   }
 }
-
 /* =========================================================
    10. FOOTER
    ========================================================= */
@@ -1234,16 +1246,31 @@ input {
   padding: 70px 7% 20px;
 }
 
+.footer-brand {
+  min-width: 0;
+}
+
+.footer-brand img {
+  width: min(390px, 100%) !important;
+  height: auto !important;
+  display: block;
+}
+
+.footer-brand p {
+  margin: 10px 0;
+}
 
 .footer-links {
   display: flex;
   gap: 80px;
+  min-width: 0;
 }
 
 .footer-links > div {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  min-width: 0;
 }
 
 .footer-links h3 {
@@ -1251,6 +1278,10 @@ input {
   font-size: 16px;
   font-weight: 500;
   color: var(--brown);
+}
+
+.footer-links a {
+  overflow-wrap: anywhere;
 }
 
 .footer-bottom {
@@ -1261,10 +1292,27 @@ input {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
 }
 
+.footer-bottom span {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
 
+.footer-bottom img {
+  width: 20px !important;
+  height: 20px !important;
+  display: block;
+}
+
+.feedback-rating-note {
+  color: #6f625c;
+  font-size: 12px;
+}
 
 /* =========================================================
    12. STORE / ACCOUNT / ADMIN STYLES
@@ -2243,6 +2291,48 @@ input {
   .admin-actions .btn,
   .form-button-row .btn {
     flex: 1;
+  }
+
+    .footer {
+    padding: 45px 7% 20px;
+    gap: 35px;
+  }
+
+  .footer-brand img {
+    width: min(250px, 100%) !important;
+  }
+
+  .footer-brand p {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .footer-links {
+    grid-template-columns: 1fr 1fr;
+    gap: 30px 20px;
+  }
+
+  .footer-links > div {
+    gap: 12px;
+  }
+
+  .footer-links h3 {
+    font-size: 14px;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .footer-bottom span {
+    gap: 7px;
+    font-size: 12px;
   }
 }
 
