@@ -8,11 +8,13 @@ $pdo = db();
 $action = $_POST['action'] ?? '';
 $userId = (int) $_SESSION['user_id'];
 
+/* ADD PRODUCT TO CART */
 if ($action === 'add') {
     $productId = (int) ($_POST['product_id'] ?? 0);
     $size = trim($_POST['size'] ?? 'One Size');
     $quantity = max(1, (int) ($_POST['quantity'] ?? 1));
 
+    /* Get the current stock from the database. */
     $stmt = $pdo->prepare('SELECT stock_qty FROM products WHERE id = ? LIMIT 1');
     $stmt->execute([$productId]);
     $stock = $stmt->fetchColumn();
@@ -22,6 +24,7 @@ if ($action === 'add') {
         redirect_to('products.php');
     }
 
+    /* Check whether the same product/size already exists in the cart. */
     $existing = $pdo->prepare('SELECT id, quantity FROM cart_items WHERE user_id = ? AND product_id = ? AND size = ? LIMIT 1');
     $existing->execute([$userId, $productId, $size]);
     $row = $existing->fetch();
@@ -39,10 +42,12 @@ if ($action === 'add') {
     redirect_to('cart.php');
 }
 
+/* UPDATE CART QUANTITY */
 if ($action === 'update') {
     $cartId = (int) ($_POST['cart_id'] ?? 0);
     $quantity = max(1, (int) ($_POST['quantity'] ?? 1));
 
+/* Make sure the cart item actually belongs to this user. */
     $stmt = $pdo->prepare('SELECT ci.id, p.stock_qty FROM cart_items ci JOIN products p ON p.id = ci.product_id WHERE ci.id = ? AND ci.user_id = ?');
     $stmt->execute([$cartId, $userId]);
     $row = $stmt->fetch();
@@ -56,12 +61,15 @@ if ($action === 'update') {
     redirect_to('cart.php');
 }
 
+/* REMOVE CART ITEM */
 if ($action === 'remove') {
     $cartId = (int) ($_POST['cart_id'] ?? 0);
+    /* The user ID condition prevents deleting another user's cart item. */
     $delete = $pdo->prepare('DELETE FROM cart_items WHERE id = ? AND user_id = ?');
     $delete->execute([$cartId, $userId]);
     flash('success', 'Item removed from your cart.');
     redirect_to('cart.php');
 }
 
+/* Unknown actions simply return the user to the cart. */
 redirect_to('cart.php');

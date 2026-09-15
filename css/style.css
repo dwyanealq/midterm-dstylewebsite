@@ -474,27 +474,6 @@ input {
   opacity: 30%;
 }
 
-.ghost-logo {
-  color: rgba(169, 139, 124, 0.22);
-  font-family: "Monroe", Arial, sans-serif;
-  font-size: 82px;
-  font-weight: 700;
-  text-align: center;
-}
-
-.ghost-logo::before {
-  content: "⌒";
-  display: block;
-  font-size: 100px;
-  line-height: 0.35;
-}
-
-.ghost-logo small {
-  display: block;
-  font-size: 30px;
-  letter-spacing: 8px;
-}
-
 .about-copy h2 {
   margin: 0 0 20px;
   font-size: 52px;
@@ -657,9 +636,8 @@ input {
   inset: 0;
 }
 
-/* Temporary visual placeholders until product images are added. */
 .placeholder-men {
-  background: linear-gradient(135deg, #222, #777);
+  background: url("../images/facebook.webp");
 }
 
 .placeholder-women {
@@ -678,17 +656,6 @@ input {
   background: linear-gradient(135deg, #4d4d4d, #c5b8aa);
 }
 
-.category-image::before {
-  content: "D’STYLE";
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  color: rgba(255, 255, 255, 0.7);
-  font-family: "Monroe", Arial, sans-serif;
-  font-size: 42px;
-  font-weight: 700;
-}
 
 .category-label {
   position: absolute;

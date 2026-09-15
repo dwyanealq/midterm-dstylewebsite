@@ -8,13 +8,16 @@ $pdo = db();
 $userId = (int) $_SESSION['user_id'];
 $errors = [];
 
+/* Load the currently authenticated user's information. */
 $stmt = $pdo->prepare('SELECT * FROM users WHERE id = ? LIMIT 1');
 $stmt->execute([$userId]);
 $user = $stmt->fetch();
 
 if (!$user) {
+    /* If the session refers to a missing account, destroy the session. */
     redirect_to('logout.php');
 }
+/* UPDATE ACCOUNT DETAILS */
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $firstName = trim($_POST['first_name'] ?? '');
@@ -23,7 +26,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $phone = trim($_POST['phone'] ?? '');
     $address = trim($_POST['address'] ?? '');
     $newPassword = $_POST['new_password'] ?? '';
+    $confirmPassword = $_POST['confirm_password'] ?? '';
 
+    /* Validate basic account information. */
     if ($firstName === '' || $lastName === '') {
         $errors[] = 'First and last name are required.';
     }
@@ -31,18 +36,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors[] = 'Please use a valid email address.';
     }
 
+    /* Make sure another user is not already using the new email. */
     $emailCheck = $pdo->prepare('SELECT id FROM users WHERE email = ? AND id <> ? LIMIT 1');
     $emailCheck->execute([$email, $userId]);
     if ($emailCheck->fetch()) {
         $errors[] = 'That email is already in use.';
     }
 
-    if ($newPassword !== '' && strlen($newPassword) < 8) {
-        $errors[] = 'New password must be at least 8 characters.';
+    /* Only validate password rules when the user entered a new password. */
+    if ($newPassword !== '') {
+        $errors = array_merge($errors, validate_password_strength($newPassword));
+
+        if ($newPassword !== $confirmPassword) {
+            $errors[] = 'New passwords do not match.';
+        }
     }
 
     if (!$errors) {
         if ($newPassword !== '') {
+            /* Hash the new password before saving it. */
             $update = $pdo->prepare('UPDATE users SET first_name = ?, last_name = ?, email = ?, phone = ?, address = ?, password_hash = ? WHERE id = ?');
             $update->execute([$firstName, $lastName, $email, $phone, $address, password_hash($newPassword, PASSWORD_DEFAULT), $userId]);
         } else {
@@ -54,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         flash('success', 'Your account details have been updated.');
         redirect_to('account.php');
     }
-
+    /* Show the submitted values again if validation failed. */
     $user = array_merge($user, compact('firstName', 'lastName', 'email', 'phone', 'address'));
 }
 
@@ -78,6 +90,7 @@ require __DIR__ . '/includes/header.php';
                 <label>Phone<input type="text" name="phone" value="<?= e($user['phone'] ?? '') ?>"></label>
                 <label class="full-width">Address<textarea name="address" rows="4"><?= e($user['address'] ?? '') ?></textarea></label>
                 <label class="full-width">New Password <small>Leave blank to keep your current password.</small><input type="password" name="new_password" minlength="8"></label>
+                <label class="full-width">Confirm New Password <input type="password" name="confirm_password" minlength="8"> </label>
                 <button class="btn filled form-submit full-width" type="submit">SAVE CHANGES</button>
             </form>
         </div>

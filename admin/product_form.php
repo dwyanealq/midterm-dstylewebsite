@@ -2,6 +2,8 @@
 require_once __DIR__ . '/../includes/db.php';
 require_once __DIR__ . '/../includes/auth.php';
 require_once __DIR__ . '/../includes/functions.php';
+
+/* Only administrators can add or edit products. */
 require_admin();
 
 $pdo = db();
@@ -13,6 +15,7 @@ $product = [
     'image' => 'images/product1.jpg', 'featured' => 0
 ];
 
+/* Load an existing product when editing. */
 if ($id) {
     $stmt = $pdo->prepare('SELECT * FROM products WHERE id = ? LIMIT 1');
     $stmt->execute([$id]);
@@ -24,6 +27,8 @@ if ($id) {
 }
 
 $categories = $pdo->query('SELECT * FROM categories ORDER BY name')->fetchAll();
+
+/* SAVE PRODUCT. */
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['product_name'] ?? '');
@@ -39,6 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $sizesInput = trim($_POST['sizes'] ?? '');
     $sizes = array_values(array_filter(array_map('trim', preg_split('/[,\n]+/', $sizesInput))));
 
+/* Basic product validation. */
     if ($name === '') $errors[] = 'Product name is required.';
     if ($categoryId <= 0) $errors[] = 'Select a category.';
     if ($price < 0 || $costPrice < 0) {
@@ -48,10 +54,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errors[] = 'Discount must be between 0% and 100%.'; }    
 
     if ($image === '') $errors[] = 'Image path is required.';
+
+/* Keep the user's prepared image paths inside images/. */
     if (!str_starts_with($image, 'images/')) $errors[] = 'Image path must begin with images/. This keeps your prepared image folder unchanged.';
 
     if (!$errors) {
         if ($id) {
+    /* Update an existing product. */
+
             $stmt = $pdo->prepare('UPDATE products SET product_name = ?, brand = ?, description = ?, category_id = ?, price = ?, cost_price = ?, discount_percent = ?, stock_qty = ?, sizes_json = ?, image = ?, featured = ? WHERE id = ?');
             $stmt->execute([
                 $name,
@@ -67,6 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $featured,
                 $id ]);
         } else {
+            /* Insert a brand-new product. */
             $stmt = $pdo->prepare('INSERT INTO products (product_name, brand, description, category_id, price, cost_price, discount_percent, stock_qty, sizes_json, image, featured) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
 
             $stmt->execute([
@@ -84,6 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         redirect_to('index.php');
     }
+    /* Keep the submitted values visible if validation fails. */
 
     $product = array_merge($product, [
         'product_name' => $name,

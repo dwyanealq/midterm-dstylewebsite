@@ -3,6 +3,7 @@ require_once __DIR__ . '/includes/db.php';
 require_once __DIR__ . '/includes/auth.php';
 require_once __DIR__ . '/includes/functions.php';
 
+/* Logged-in users should not see the login page again. */
 if (is_logged_in()) {
     redirect_to(is_admin() ? 'admin/index.php' : 'account.php');
 }
@@ -10,6 +11,7 @@ if (is_logged_in()) {
 $error = '';
 $redirect = $_GET['redirect'] ?? $_POST['redirect'] ?? '';
 
+/* LOGIN PROCESS */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email'] ?? '');
     $password = $_POST['password'] ?? '';
@@ -17,22 +19,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!filter_var($email, FILTER_VALIDATE_EMAIL) || $password === '') {
         $error = 'Please enter a valid email and password.';
     } else {
+        /* Prepared statement prevents SQL injection. */
         $stmt = db()->prepare('SELECT id, first_name, last_name, email, password_hash, role FROM users WHERE email = ? LIMIT 1');
         $stmt->execute([$email]);
         $user = $stmt->fetch();
 
+        /* Verify the submitted password against the stored hash. */
         if ($user && password_verify($password, $user['password_hash'])) {
+            /* Change the session ID after login to prevent session fixation. */
+            session_regenerate_id(true);
+
             $_SESSION['user_id'] = (int) $user['id'];
             $_SESSION['user_name'] = $user['first_name'] . ' ' . $user['last_name'];
             $_SESSION['role'] = $user['role'];
+            $_SESSION['logged_in_at'] = time();
 
+            /* Allow only internal/local redirect destinations. */
             if ($redirect && !str_starts_with($redirect, 'http')) {
                 redirect_to($redirect);
             }
 
             redirect_to($user['role'] === 'admin' ? 'admin/index.php' : 'account.php');
         }
-
+        /* Use a generic message so attackers cannot discover valid emails. */
         $error = 'Incorrect email or password.';
     }
 }

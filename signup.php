@@ -3,28 +3,44 @@ require_once __DIR__ . '/includes/db.php';
 require_once __DIR__ . '/includes/auth.php';
 require_once __DIR__ . '/includes/functions.php';
 
+/* Logged-in users already have an account, so send them to Account. */
 if (is_logged_in()) {
     redirect_to('account.php');
 }
 
 $errors = [];
 
+/* REGISTRATION PROCESS */
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $firstName = trim($_POST['first_name'] ?? '');
     $lastName = trim($_POST['last_name'] ?? '');
-    $email = trim($_POST['email'] ?? '');
+    $email = strtolower(trim($_POST['email'] ?? ''));
     $password = $_POST['password'] ?? '';
     $confirmPassword = $_POST['confirm_password'] ?? '';
 
     if ($firstName === '' || $lastName === '') {
         $errors[] = 'First and last name are required.';
     }
+
+    if (mb_strlen($firstName) > 100 || mb_strlen($lastName) > 100) {
+        $errors[] = 'Name is too long.';
+    }
+
+    if (!preg_match('/^[\p{L}\s\-]+$/u', $firstName)) {
+        $errors[] = 'First name contains invalid characters.';
+    }
+
+    if (!preg_match('/^[\p{L}\s\-]+$/u', $lastName)) {
+        $errors[] = 'Last name contains invalid characters.';
+    }
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors[] = 'Please enter a valid email address.';
     }
-    if (strlen($password) < 8) {
-        $errors[] = 'Password must be at least 8 characters.';
-    }
+    
+    /* Apply all password security requirements. */
+    $errors = array_merge($errors, validate_password_strength($password));
+
     if ($password !== $confirmPassword) {
         $errors[] = 'Passwords do not match.';
     }

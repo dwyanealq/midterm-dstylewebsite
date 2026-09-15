@@ -2,9 +2,13 @@
 require_once __DIR__ . '/../includes/db.php';
 require_once __DIR__ . '/../includes/auth.php';
 require_once __DIR__ . '/../includes/functions.php';
+
+/* Only authenticated administrators can access the management panel. */
 require_admin();
 
 $pdo = db();
+
+/* Load inventory, categories, and customer count for the dashboard. */
 $products = $pdo->query('SELECT p.*, c.name AS category_name FROM products p JOIN categories c ON c.id = p.category_id ORDER BY p.updated_at DESC')->fetchAll();
 $categories = $pdo->query('SELECT * FROM categories ORDER BY name')->fetchAll();
 $userCount = (int) $pdo->query("SELECT COUNT(*) FROM users WHERE role = 'customer'")->fetchColumn();

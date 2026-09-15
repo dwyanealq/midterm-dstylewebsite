@@ -13,11 +13,7 @@ const coverflow = document.getElementById("coverflow");
 let active = 0;
 let startX = null;
 
-/*
- * Updates the position of every category card.
- * The active card stays in the center while the other
- * cards are positioned around it in a circular layout.
- */
+/* Updates the position of every category card. */
 function renderCoverflow() {
   if (!cards.length) {
     return;
@@ -191,11 +187,6 @@ document.addEventListener("click", () => {
 const search = document.querySelector(".search");
 const searchInput = document.getElementById("searchInput");
 
-/*
- * This is currently front-end search feedback only.
- * Actual product searching will be connected when the
- * PHP/database portion of the project is added.
- */
 search?.addEventListener("submit", (event) => {
   const value = searchInput?.value.trim() || "";
 
@@ -213,7 +204,6 @@ search?.addEventListener("submit", (event) => {
 const favoritesBtn = document.getElementById("favoritesBtn");
 const cartBtn = document.getElementById("cartBtn");
 
-/* Favorites and cart are now regular links to the PHP pages. */
 
 /* =========================================================
    7. TOAST MESSAGE

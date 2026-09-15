@@ -135,7 +135,7 @@ require __DIR__ . '/includes/header.php';
         <div class="coverflow" id="coverflow">
             <?php
             $categoryClasses = [
-                'Men' => 'placeholder-men',
+                'Men' => 'images/MainLogo.png',
                 'Women' => 'placeholder-women',
                 'Kids' => 'placeholder-kids',
                 'Shoes' => 'placeholder-shoes',

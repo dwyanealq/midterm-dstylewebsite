@@ -2,10 +2,16 @@
 require_once __DIR__ . '/../includes/db.php';
 require_once __DIR__ . '/../includes/auth.php';
 require_once __DIR__ . '/../includes/functions.php';
+
+/* Only administrators can manage categories. */
 require_admin();
 
 $pdo = db();
 $error = '';
+
+/* =========================================================
+   ADD / EDIT CATEGORY
+   ========================================================= */
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name'] ?? '');
