@@ -60,6 +60,8 @@ if ($user) {
         </div>
         <a href="<?= $rootPrefix ?>index.php#about">ABOUT US</a>
         <a href="<?= $rootPrefix ?>index.php#location">FIND D’STYLE</a>
+        <a href="<?= $rootPrefix ?>feedback.php">FEEDBACK</a>
+
     </nav>
 
     <div class="header-actions">
