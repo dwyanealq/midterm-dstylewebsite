@@ -9,9 +9,7 @@ require_admin();
 $pdo = db();
 $error = '';
 
-/* =========================================================
-   ADD / EDIT CATEGORY
-   ========================================================= */
+/* ADD / EDIT CATEGORY */
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name'] ?? '');
@@ -37,6 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+/*   DELETE CATEGORY */
+
 
 if (isset($_GET['delete'])) {
     $id = (int) $_GET['delete'];

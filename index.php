@@ -144,7 +144,16 @@ require __DIR__ . '/includes/header.php';
             foreach ($categoryClasses as $name => $class):
             ?>
                 <a class="category-card" data-category="<?= e($name) ?>" href="products.php?category=<?= urlencode($name) ?>">
-                    <div class="category-image <?= e($class) ?>"></div>
+                    <div class="category-image <?= e($class) ?>">
+                        <?php if (!empty($categoryImages[$name])): ?>
+                            <img
+                                src="<?= e($categoryImages[$name]) ?>"
+                                alt="<?= e($name) ?> clothing"
+                            >
+                        <?php else: ?>
+                            <span class="category-image-fallback">D’STYLE</span>
+                        <?php endif; ?>
+                    </div>                    
                     <div class="category-label"><?= e(strtoupper($name)) ?></div>
                 </a>
             <?php endforeach; ?>

@@ -637,7 +637,7 @@ input {
 }
 
 .placeholder-men {
-  background: url("../images/facebook.webp");
+  background: linear-gradient(135deg, #704e57, #d0b4ae);
 }
 
 .placeholder-women {
@@ -1273,6 +1273,7 @@ input {
   justify-content: space-between;
   gap: 20px;
 }
+
 
 
 /* =========================================================

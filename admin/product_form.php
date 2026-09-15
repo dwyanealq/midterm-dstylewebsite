@@ -12,7 +12,7 @@ $errors = [];
 $product = [
     'product_name' => '', 'brand' => '', 'description' => '', 'category_id' => '',
     'price' => '', 'cost_price' => '', 'discount_percent' => 0, 'stock_qty' => 0, 'sizes_json' => '[]',
-    'image' => 'images/product1.jpg', 'featured' => 0
+    'image' => 'images/Products/.jpg', 'featured' => 0
 ];
 
 /* Load an existing product when editing. */

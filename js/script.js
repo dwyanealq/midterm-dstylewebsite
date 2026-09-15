@@ -83,13 +83,11 @@ nextBtn?.addEventListener("click", () => {
 
 /* Clicking a card either selects it or moves it to the center. */
 cards.forEach((card, index) => {
-  card.addEventListener("click", () => {
-    if (index === active) {
-      showToast(`${card.dataset.category} selected`);
-      return;
+  card.addEventListener("click", (event) => {
+    if (index !== active) {
+      event.preventDefault();
+      goTo(index);
     }
-
-    goTo(index);
   });
 });
 

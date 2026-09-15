@@ -51,11 +51,11 @@ if ($user) {
                 CATEGORIES <span class="dropdown-arrow"></span>
             </button>
             <div class="dropdown-menu">
-                <a href="products.php?category=Men">MEN</a>
-                <a href="products.php?category=Women">WOMEN</a>
-                <a href="products.php?category=Kids">KIDS</a>
-                <a href="products.php?category=Shoes">SHOES</a>
-                <a href="products.php?category=Accessories">ACCESSORIES</a>
+                <a href="<?= $rootPrefix ?>products.php?category=Men">MEN</a>
+                <a href="<?= $rootPrefix ?>products.php?category=Women">WOMEN</a>
+                <a href="<?= $rootPrefix ?>products.php?category=Kids">KIDS</a>
+                <a href="<?= $rootPrefix ?>products.php?category=Shoes">SHOES</a>
+                <a href="<?= $rootPrefix ?>products.php?category=Accessories">ACCESSORIES</a>
             </div>
         </div>
         <a href="<?= $rootPrefix ?>index.php#about">ABOUT US</a>

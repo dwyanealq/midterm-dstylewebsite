@@ -19,7 +19,7 @@ require __DIR__ . '/../includes/header.php';
 
 <!-- 
 admin user: admin@dstyleapp.com
-pass: admin123 
+pass: DSTYLE2026! 
 -->
 
 
